@@ -23,7 +23,7 @@ services:
     build: ./services/download/
     profiles: ["download"]
     volumes:
-      - ./models:/the-models
+      - *v1
 
   auto: &automatic
     <<: *base_service
@@ -31,7 +31,7 @@ services:
     build: ./services/AUTOMATIC1111
     image: emprops/auto1111:sdauto2
     volumes:
-
+      - ./models:/the-models
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
 
