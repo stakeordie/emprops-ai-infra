@@ -59,7 +59,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
 ENV LD_PRELOAD=libtcmalloc.so
 
-RUN \ls
+RUN \
   # mv ${ROOT}/style.css ${ROOT}/user.css && \
   # one of the ugliest hacks I ever wrote \
   sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py && \
