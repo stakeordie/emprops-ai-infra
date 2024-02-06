@@ -1,7 +1,6 @@
 FROM alpine/git:2.36.2 as download
 
 COPY clone.sh /clone.sh
-COPY models /models
 
 RUN . /clone.sh stable-diffusion-stability-ai https://github.com/Stability-AI/stablediffusion.git cf1d67a6fd5ea1aa600c4df58e5b47da45f6bdbf \
   && rm -rf assets data/**/*.png data/**/*.jpg data/**/*.gif
@@ -35,7 +34,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 
 ENV ROOT=/stable-diffusion-webui
-COPY --from=download /models/ ${ROOT}/models/Stable-diffusion/
+COPY models/ ${ROOT}/models/Stable-diffusion/
 
 COPY --from=download /repositories/ ${ROOT}/repositories/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
