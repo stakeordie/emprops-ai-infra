@@ -44,8 +44,9 @@ RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
 
-RUN apt-get install -y nodejs
-RUN npm install pm2 -g
+RUN apt-get update && apt-get install -y nodejs
+RUN npm install -g npm@9.8.0
+RUN npm install -g pm2@latest
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install pyngrok xformers==0.0.23.post1 \
@@ -58,7 +59,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
 ENV LD_PRELOAD=libtcmalloc.so
 
-RUN \
+RUN \ls
   # mv ${ROOT}/style.css ${ROOT}/user.css && \
   # one of the ugliest hacks I ever wrote \
   sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py && \
