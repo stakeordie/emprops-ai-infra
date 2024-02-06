@@ -44,6 +44,9 @@ RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
 
+RUN apt-get install -y nodejs
+RUN npm install pm2 -g
+
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install pyngrok xformers==0.0.23.post1 \
   git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
@@ -66,4 +69,4 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD python -u webui.py --listen --opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
+CMD pm2 start --name a1111 "webui.py --listen --opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae"
