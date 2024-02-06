@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-COPY clone.sh config.py Dockerfile entrypoint.sh docker/*
+COPY clone.sh config.py Dockerfile entrypoint.sh /docker/
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
