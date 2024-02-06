@@ -44,6 +44,8 @@ RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
 
+
+ENV PATH="./node_modules/.bin:$PATH"
 RUN apt-get update && apt-get install -y nodejs
 RUN npm install -g npm@9.8.0
 RUN npm install -g pm2@latest
