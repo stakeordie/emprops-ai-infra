@@ -8,6 +8,8 @@ mkdir -p /data/config/auto/scripts/
 
 echo $ROOT
 ls -lha $ROOT
+ls -lha $ROOT/models
+ls -lha $ROOT/models/Stable-Diffusion
 
 find "${ROOT}/scripts/" -maxdepth 1 -type l -delete
 cp -vrfTs /data/config/auto/scripts/ "${ROOT}/scripts/"
@@ -22,6 +24,8 @@ fi
 if [ ! -f /data/config/auto/styles.csv ]; then
   touch /data/config/auto/styles.csv
 fi
+
+
 
 # copy models from original models folder
 mkdir -p /data/models/VAE-approx/ /data/models/karlo/
