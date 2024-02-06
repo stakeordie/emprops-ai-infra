@@ -38,7 +38,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 ENV ROOT=/stable-diffusion-webui
 
-COPY docker/a-model/ /data/models/Stable-diffusion/
+COPY a-model/ /data/models/Stable-diffusion/
 COPY --from=download /repositories/ ${ROOT}/repositories/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
 RUN --mount=type=cache,target=/root/.cache/pip \
