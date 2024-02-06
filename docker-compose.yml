@@ -6,6 +6,7 @@ x-base_service: &base_service
     volumes:
       - &v1 ./data:/data
       - &v2 ./output:/output
+      - &v3 ./models:/the-models
     stop_signal: SIGKILL
     tty: true
     deploy:
@@ -31,7 +32,7 @@ services:
     build: ./services/AUTOMATIC1111
     image: emprops/auto1111:sdauto2
     volumes:
-      - ./models:/the-models
+      - *v3
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
 
