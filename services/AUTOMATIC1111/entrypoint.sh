@@ -31,7 +31,7 @@ mkdir -p /data/models/VAE-approx/ /data/models/karlo/ /data/models/Stable-diffus
 
 rsync -a --info=NAME ${ROOT}/models/VAE-approx/ /data/models/VAE-approx/
 rsync -a --info=NAME ${ROOT}/models/karlo/ /data/models/karlo/
-rsync -a --info=NAME /the-models/ /data/models/Stable-diffusion/
+rsync -a --info=NAME /docker/the-models/ /data/models/Stable-diffusion/
 
 declare -A MOUNTS
 
