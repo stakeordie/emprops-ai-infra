@@ -8,8 +8,7 @@ mkdir -p /data/config/auto/scripts/
 
 echo $ROOT
 ls -lha $ROOT
-ls -lha $ROOT/models
-ls -lha $ROOT/models/Stable-Diffusion
+ls -lha /
 
 find "${ROOT}/scripts/" -maxdepth 1 -type l -delete
 cp -vrfTs /data/config/auto/scripts/ "${ROOT}/scripts/"
@@ -28,10 +27,11 @@ fi
 
 
 # copy models from original models folder
-mkdir -p /data/models/VAE-approx/ /data/models/karlo/
+mkdir -p /data/models/VAE-approx/ /data/models/karlo/ /data/models/Stable-diffusion/
 
 rsync -a --info=NAME ${ROOT}/models/VAE-approx/ /data/models/VAE-approx/
 rsync -a --info=NAME ${ROOT}/models/karlo/ /data/models/karlo/
+rsync -a --info=NAME /the-models/ /data/models/Stable-diffusion/
 
 declare -A MOUNTS
 

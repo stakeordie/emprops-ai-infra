@@ -27,8 +27,6 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-COPY ../../models/ /the-models
-
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
   cd stable-diffusion-webui && \
