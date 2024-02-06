@@ -24,9 +24,10 @@ if [ ! -f /data/config/auto/styles.csv ]; then
   touch /data/config/auto/styles.csv
 fi
 
-RUN apt-get update && apt-get install -y nodejs
-RUN npm install -g npm@9.8.0
-RUN npm install -g pm2@latest
+apt-get update
+apt-get install -y nodejs
+npm install -g npm@9.8.0
+npm install -g pm2@latest
 
 # copy models from original models folder
 mkdir -p /data/models/VAE-approx/ /data/models/karlo/ /data/models/Stable-diffusion/
