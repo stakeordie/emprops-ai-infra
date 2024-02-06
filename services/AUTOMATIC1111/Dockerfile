@@ -14,6 +14,7 @@ RUN . /clone.sh k-diffusion https://github.com/crowsonkb/k-diffusion.git ab527a9
 RUN . /clone.sh clip-interrogator https://github.com/pharmapsychotic/clip-interrogator 2cf03aaf6e704197fd0dae7c7f96aa59cf1b11c9
 RUN . /clone.sh generative-models https://github.com/Stability-AI/generative-models 45c443b316737a4ab6e40413d7794a7f5657c19f
 
+COPY lib/models /Stable-diffusion
 
 FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
 
@@ -36,6 +37,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 
 ENV ROOT=/stable-diffusion-webui
+COPY --from=download /Stable-diffusion ${ROOT}/models/Stable-diffusion
 
 COPY --from=download /repositories/ ${ROOT}/repositories/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
