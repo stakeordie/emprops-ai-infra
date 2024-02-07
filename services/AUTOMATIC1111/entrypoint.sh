@@ -97,5 +97,3 @@ if [ -f "/data/config/auto/startup.sh" ]; then
 fi
 
 exec "$@"
-
-sleep infinity
