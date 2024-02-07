@@ -24,18 +24,14 @@ if [ ! -f /data/config/auto/styles.csv ]; then
   touch /data/config/auto/styles.csv
 fi
 
-echo "Installing pm2..."
-apt-get install -y ca-certificates curl gnupg
-mkdir -p /etc/apt/keyrings
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+
 
 # copy models from original models folder
-mkdir -p /data/models/VAE-approx/ /data/models/karlo/ /data/models/Stable-diffusion/
+mkdir -p /data/models/VAE-approx/ /data/models/karlo/
 
 rsync -a --info=NAME ${ROOT}/models/VAE-approx/ /data/models/VAE-approx/
 rsync -a --info=NAME ${ROOT}/models/karlo/ /data/models/karlo/
-# rsync -a --info=NAME /docker/the-models/ /data/models/Stable-diffusion/
+#rsync -a --info=NAME /docker/the-models/ /data/models/Stable-diffusion/
 
 declare -A MOUNTS
 
