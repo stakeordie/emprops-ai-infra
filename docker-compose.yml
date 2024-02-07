@@ -35,7 +35,7 @@ services:
 
   auto-pm2: &automatic
     <<: *base_service
-    profiles: ["auto"]
+    profiles: ["auto-pm2"]
     build: ./services/AUTOMATIC1111
     image: emprops/auto1111:sdautopm2
     environment:
