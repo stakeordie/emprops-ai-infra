@@ -24,6 +24,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   # extensions needs those
   ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
 
+
 WORKDIR /
 
 COPY models/ /data/models/Stable-diffusion/
@@ -35,7 +36,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
   cd stable-diffusion-webui && \
   git reset --hard cf2772fab0af5573da775e7437e6acdca424f26e && \
   pip install -r requirements_versions.txt
-
 
 ENV ROOT=/stable-diffusion-webui
 
@@ -66,4 +66,4 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD webui.py --listen --opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
+CMD python -u webui.py --listen --opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
