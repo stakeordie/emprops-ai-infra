@@ -24,8 +24,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
   # extensions needs those
   ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
 
-
 WORKDIR /
+
+COPY models/ /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh /docker/
 
@@ -38,7 +39,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 ENV ROOT=/stable-diffusion-webui
 
-COPY models/ /data/models/Stable-diffusion/
 COPY --from=download /repositories/ ${ROOT}/repositories/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
 RUN --mount=type=cache,target=/root/.cache/pip \
