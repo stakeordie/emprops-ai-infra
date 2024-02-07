@@ -66,4 +66,4 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD pm2 start --name test "python -u webui.py --listen --opt-sdp-no-mem-attention --api --port 3100 --medvram --no-half-vae"
+CMD python -u webui.py --listen --opt-sdp-no-mem-attention --api --port 3100 --medvram --no-half-vae
