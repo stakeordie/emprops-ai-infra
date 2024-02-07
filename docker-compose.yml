@@ -31,6 +31,14 @@ services:
     build: ./services/AUTOMATIC1111
     image: emprops/auto1111:sdauto1.5
     environment:
+      - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
+
+  auto-pm2: &automatic
+    <<: *base_service
+    profiles: ["auto"]
+    build: ./services/AUTOMATIC1111
+    image: emprops/auto1111:sdautopm2
+    environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
 
   auto-cpu:
