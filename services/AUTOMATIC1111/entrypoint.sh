@@ -29,10 +29,6 @@ apt-get install -y ca-certificates curl gnupg
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-apt-get update
-apt-get install nodejs -y
-npm install -g npm@9.8.0
-npm install -g pm2@latest
 
 # copy models from original models folder
 mkdir -p /data/models/VAE-approx/ /data/models/karlo/ /data/models/Stable-diffusion/
@@ -95,5 +91,3 @@ if [ -f "/data/config/auto/startup.sh" ]; then
 fi
 
 exec "$@"
-
-sleep infinity
