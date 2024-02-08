@@ -29,7 +29,7 @@ WORKDIR /
 
 ARG models
 
-COPY '$buildno' /data/models/Stable-diffusion/
+COPY '$models' /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
