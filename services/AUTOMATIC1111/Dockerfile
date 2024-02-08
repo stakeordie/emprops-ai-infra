@@ -29,7 +29,7 @@ WORKDIR /
 
 ARG models
 
-FROM  ${models} as this
+FROM $models as this
 
 COPY this /data/models/Stable-diffusion/
 
