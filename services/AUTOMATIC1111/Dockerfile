@@ -31,7 +31,7 @@ ARG models
 
 RUN echo "Build number: $models"
 
-COPY $models /data/models/Stable-diffusion/
+COPY 1_5.ckpt /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
