@@ -29,7 +29,9 @@ WORKDIR /
 
 ARG models
 
-COPY ${models} /data/models/Stable-diffusion/
+FROM  ${models} as this
+
+COPY this /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
