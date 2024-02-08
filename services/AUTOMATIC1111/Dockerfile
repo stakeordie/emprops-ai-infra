@@ -20,7 +20,7 @@ ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   # we need those
-  apt-get install -y fonts-dejavu-core rsync git jq moreutils aria2 \
+  apt-get install -y fonts-dejavu-core rsync git jq moreutils aria2 nginx \
   # extensions needs those
   ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
 
@@ -29,7 +29,7 @@ WORKDIR /
 
 COPY models/ /data/models/Stable-diffusion/
 
-COPY clone.sh config.py Dockerfile entrypoint.sh /docker/
+COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
@@ -66,4 +66,4 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD python -u webui.py --opt-sdp-no-mem-attention --listen --api --server-name '[::]' --port 3100 --medvram --no-half-vae
+CMD python -u webui.py --opt-sdp-no-mem-attention --listen --api --port 3130 --medvram --no-half-vae && service nginx start
