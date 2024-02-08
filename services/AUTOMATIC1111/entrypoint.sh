@@ -87,4 +87,6 @@ if [ -f "/data/config/auto/startup.sh" ]; then
   popd
 fi
 
+service nginx start
+
 exec "$@"
