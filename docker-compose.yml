@@ -39,6 +39,8 @@ services:
     <<: *automatic
     profiles: ["auto-cpu"]
     deploy: {}
+    args:
+      models: "1_5.ckpt 2_1.ckpt"
     environment:
       - CLI_ARGS=--no-half --precision full --allow-code --enable-insecure-extension-access --api
 
