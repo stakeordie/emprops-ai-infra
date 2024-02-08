@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-COPY 1_5.ckpt 2_1.ckpt /data/models/Stable-diffusion/
+COPY models/sdxl.safetensors models/sdxl_refiner.safetensors /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
