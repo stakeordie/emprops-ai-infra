@@ -28,7 +28,8 @@ services:
   auto: &automatic
     <<: *base_service
     profiles: ["auto"]
-    build: ./services/AUTOMATIC1111
+    build: 
+      context: ./services/AUTOMATIC1111
       args:
         models: "1_5.ckpt 2_1.ckpt"
     image: emprops/auto1111:sdauto1.5-3100
