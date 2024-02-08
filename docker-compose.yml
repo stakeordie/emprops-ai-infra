@@ -30,9 +30,10 @@ services:
     profiles: ["auto"]
     build: ./services/AUTOMATIC1111
     image: emprops/auto1111:sdauto1.5-3100
+    arg:
+      models: "1_5.ckpt 2_1.ckpt"
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
-      - MODELS=1_5.ckpt  2_1.ckpt
 
   auto-cpu:
     <<: *automatic
