@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-COPY models/ /data/models/Stable-diffusion/
+COPY m1.5/ /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
