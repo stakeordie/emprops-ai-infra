@@ -32,13 +32,13 @@ services:
     image: emprops/auto1111:sdauto1.5-3100
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
+      - MODELS=1_5.ckpt  2_1.ckpt
 
   auto-cpu:
     <<: *automatic
     profiles: ["auto-cpu"]
     deploy: {}
     environment:
-      - MODELS=1_5.ckpt  2_1.ckpt
       - CLI_ARGS=--no-half --precision full --allow-code --enable-insecure-extension-access --api
 
   invoke: &invoke
