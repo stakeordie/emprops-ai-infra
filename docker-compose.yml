@@ -29,9 +29,9 @@ services:
     <<: *base_service
     profiles: ["auto"]
     build: ./services/AUTOMATIC1111
+      args:
+        models: "1_5.ckpt 2_1.ckpt"
     image: emprops/auto1111:sdauto1.5-3100
-    args:
-      models: "1_5.ckpt 2_1.ckpt"
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
 
@@ -39,8 +39,6 @@ services:
     <<: *automatic
     profiles: ["auto-cpu"]
     deploy: {}
-    args:
-      models: "1_5.ckpt 2_1.ckpt"
     environment:
       - CLI_ARGS=--no-half --precision full --allow-code --enable-insecure-extension-access --api
 
