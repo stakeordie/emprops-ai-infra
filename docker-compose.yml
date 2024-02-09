@@ -27,6 +27,17 @@ services:
 
   auto: &automatic
     <<: *base_service
+    profiles: ["auto"]
+    build: 
+      context: ./services/AUTOMATIC1111
+      args:
+        model-folder: "auto"
+    image: emprops/auto1111:sdauto
+    environment:
+      - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
+
+  1_5-and-2_1: &automatic
+    <<: *base_service
     profiles: ["1_5-and-2_1"]
     build: 
       context: ./services/AUTOMATIC1111
@@ -36,7 +47,7 @@ services:
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
 
-  auto: &automatic
+  sdxl-and-refiner: &automatic
     <<: *base_service
     profiles: ["sdxl-and-refiner"]
     build: 
