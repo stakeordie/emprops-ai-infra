@@ -27,9 +27,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-ARG model-folder
+ARG models
 
-RUN "model-folder = " ${model-folder}
+RUN "models = " ${models}
 
 COPY ${model-folder} /data/models/Stable-diffusion/
 
