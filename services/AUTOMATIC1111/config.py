@@ -20,7 +20,7 @@ DEFAULT_OUTDIRS = {
   "outdir_save": "/output/saved",
   "outdir_init_images": "/output/init-images",
   "sd_checkpoints_limit": 2,
-  "sd_checkpoints_keep_in_cpu": false
+  "sd_checkpoints_keep_in_cpu": "false",
 }
 RE_VALID_OUTDIR = re.compile(r"(^/output(/\.?[\w\-\_]+)+/?$)|(^\s?$)")
 
