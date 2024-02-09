@@ -19,7 +19,7 @@ DEFAULT_OUTDIRS = {
   "outdir_img2img_grids": "/output/img2img-grids",
   "outdir_save": "/output/saved",
   "outdir_init_images": "/output/init-images",
-  "sd_checkpoints_limit": 2,
+  "sd_checkpoints_limit": 4,
   "sd_checkpoints_keep_in_cpu": bool(0),
 }
 RE_VALID_OUTDIR = re.compile(r"(^/output(/\.?[\w\-\_]+)+/?$)|(^\s?$)")
