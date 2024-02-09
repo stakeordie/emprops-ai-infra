@@ -28,7 +28,10 @@ services:
   auto: &automatic
     <<: *base_service
     profiles: ["auto"]
-    build: ./services/AUTOMATIC1111
+    build: 
+      context: ./services/AUTOMATIC1111
+      args:
+        model-folder: "1_5and2_1"
     image: emprops/auto1111:sdauto1.5-2.1-3100
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 

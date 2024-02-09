@@ -27,7 +27,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-COPY models/sdxl.safetensors models/sdxl_refiner.safetensors /data/models/Stable-diffusion/
+ARG model-folder
+
+COPY ${model-folder} /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
 
