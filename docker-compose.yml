@@ -53,7 +53,18 @@ services:
         models: "sdxl-and-refiner"
     image: emprops/auto1111:sdautosdxl-and-refiner
     environment:
-      - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae 
+      - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
+
+  all: &automatic
+    <<: *base_service
+    profiles: ["all"]
+    build: 
+      context: ./services/AUTOMATIC1111
+      args:
+        models: "models"
+    image: emprops/auto1111:sdauto-all
+    environment:
+      - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
 
   auto-cpu:
     <<: *automatic
