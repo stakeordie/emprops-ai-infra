@@ -33,7 +33,7 @@ RUN echo "models = " ${models}
 
 COPY ${models} /data/models/Stable-diffusion
 
-COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
+COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default start.sh /docker/
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
@@ -70,4 +70,5 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae
+RUN chmod +x /start.s && chmod +x /webui.sh
+CMD ["/start.sh"] 
