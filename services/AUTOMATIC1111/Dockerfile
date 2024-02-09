@@ -29,6 +29,8 @@ WORKDIR /
 
 ARG model-folder
 
+RUN "model-folder = ${model-folder}"
+
 COPY ${model-folder} /data/models/Stable-diffusion/
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default /docker/
