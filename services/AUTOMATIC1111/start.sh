@@ -10,7 +10,7 @@ wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingf
 
 cd ${ROOT}
 
-pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
+pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --nowebui --api --port 3130 --medvram --no-half-vae"
 
 service nginx start
 
