@@ -70,5 +70,5 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-RUN chmod +x /start.sh
-CMD ["/start.sh"] 
+RUN chmod +x /docker/start.sh
+CMD ["/docker/start.sh"] 
