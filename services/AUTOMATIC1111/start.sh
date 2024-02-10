@@ -8,6 +8,8 @@ wget https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_7
 wget https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 wget https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
 
+cd ${ROOT}
+
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --nowebui --port 3130 --medvram --no-half-vae"
 
 service nginx start
