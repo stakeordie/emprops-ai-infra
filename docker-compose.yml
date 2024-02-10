@@ -65,6 +65,7 @@ services:
     image: emprops/auto1111:sdauto-all
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
+      - MODELS="sd_xl_base_1.0,sd_xl_refiner_1.0,v2-1_768-ema-pruned,v1-5-pruned"
 
   auto-cpu:
     <<: *automatic
