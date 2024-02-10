@@ -7,9 +7,9 @@ pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --po
 service nginx start
 
 # Comma separated string to array
-IFS=, read -r -a models <<<"$MODELS"
+IFS=, read -r -a models <<<"${MODELS}"
 
 # Array to parameter list
-for model in "${models[@]}"; do python loader.py -m $models; done
+for model in "${models[@]}"; do echo $model && python loader.py -m $model; done
 
 sleep infinity
