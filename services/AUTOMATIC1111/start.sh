@@ -12,7 +12,6 @@ IFS=, read -r -a models <<<"${MODELS}"
 # Array to parameter list
 echo "Loading models: ${MODELS}"
 
-echo $number  # Output: 25
 pm2 logs --format | grep auto | while read line
 do
     id=$(echo "$line" | grep -oP '(?<=id=)\d+')
