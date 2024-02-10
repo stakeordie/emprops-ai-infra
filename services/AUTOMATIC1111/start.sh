@@ -14,6 +14,6 @@ echo "Loading models: ${MODELS}"
 
 sleep 125
 
-for model in "${models[@]}"; do echo $model && python loader.py -m $model; done
+for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
 
 sleep infinity
