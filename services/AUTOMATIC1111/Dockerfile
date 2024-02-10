@@ -27,11 +27,11 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 WORKDIR /
 
-ARG models
+#ARG models
 
-RUN echo "models = " ${models}
+#RUN echo "models = " ${models}
 
-COPY ${models} /data/models/Stable-diffusion
+#COPY ${models} /data/models/Stable-diffusion
 
 COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default start.sh loader.py /docker/
 

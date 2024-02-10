@@ -2,7 +2,13 @@
 
 set -Eeuo pipefail
 
-pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
+cd ${ROOT}/models/Stable-diffusion 
+wget https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.ckpt
+wget https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.ckpt
+wget https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
+wget https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+
+pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --nowebui --port 3130 --medvram --no-half-vae"
 
 service nginx start
 
