@@ -68,7 +68,7 @@ RUN \
 WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
-ENV MODELS=""
+# ENV MODELS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
 RUN chmod +x /docker/start.sh
