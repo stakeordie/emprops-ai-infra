@@ -12,15 +12,8 @@ IFS=, read -r -a models <<<"${MODELS}"
 # Array to parameter list
 echo "Loading models: ${MODELS}"
 
-pm2 logs --format | grep auto | while read line
-do
-    id=$(echo "$line" | grep -oP '(?<=id=)\d+')
-    echo "$line" | grep "message=Model loaded in"
-    if [ $? = 0 ]
-    then
-      for model in "${models[@]}"; do echo $model && python loader.py -m $model; done
-      break;
-    fi
-done
+sleep 125
+
+for model in "${models[@]}"; do echo $model && python loader.py -m $model; done
 
 sleep infinity
