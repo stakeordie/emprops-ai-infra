@@ -12,7 +12,7 @@ IFS=, read -r -a models <<<"${MODELS}"
 # Array to parameter list
 echo "Loading models: ${MODELS}"
 
-sleep 90
+sleep 50
 
 for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
 
