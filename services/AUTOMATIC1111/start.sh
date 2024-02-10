@@ -10,6 +10,7 @@ service nginx start
 IFS=, read -r -a models <<<"${MODELS}"
 
 # Array to parameter list
+echo "Loading models: ${MODELS}"
 for model in "${models[@]}"; do echo $model && python loader.py -m $model; done
 
 sleep infinity
