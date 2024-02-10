@@ -33,7 +33,7 @@ RUN echo "models = " ${models}
 
 COPY ${models} /data/models/Stable-diffusion
 
-COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default start.sh /docker/
+COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default start.sh loader.py /docker/
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
@@ -71,5 +71,5 @@ ENV CLI_ARGS=""
 ENV MODELS="sd_xl_base_1.0,sd_xl_refiner_1.0,v2-1_768-ema-pruned,v1-5-pruned"
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
-RUN chmod +x /docker/start.sh
+RUN chmod +x /docker/start.sh && chmod +x /docker/loader.py
 CMD ["/docker/start.sh"] 
