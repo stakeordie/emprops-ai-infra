@@ -16,4 +16,6 @@ sleep 50
 
 for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
 
+echo "~~READY~~"
+
 sleep infinity
