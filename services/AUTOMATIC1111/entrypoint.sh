@@ -6,21 +6,14 @@ set -Eeuo pipefail
 mkdir -p /data/config/auto/scripts/
 # mount scripts individually
 
-while getopts "r:m:" flag > /dev/null 2>&1
-do
-    case ${flag} in
-        r) BOOT="${OPTARG}" ;;
-        m) MODELS="${OPTARG}" ;;
-        *) break;; 
-    esac
-done
+ROOT=/stable-diffusion-webui
 
-echo $BOOT
-ls -lha $BOOT
+echo $ROOT
+ls -lha $ROOT
 ls -lha /
 
-find "${BOOT}/scripts/" -maxdepth 1 -type l -delete
-cp -vrfTs /data/config/auto/scripts/ "${BOOT}/scripts/"
+find "${ROOT}/scripts/" -maxdepth 1 -type l -delete
+cp -vrfTs /data/config/auto/scripts/ "${ROOT}/scripts/"
 
 cp /docker/nginx.conf /etc/nginx/nginx.conf
 cp /docker/nginx-default /etc/nginx/sites-enabled/default
@@ -52,24 +45,24 @@ fi
 # copy models from original models folder
 mkdir -p /data/models/VAE-approx/ /data/models/karlo/
 
-rsync -a --info=NAME ${BOOT}/models/VAE-approx/ /data/models/VAE-approx/
-rsync -a --info=NAME ${BOOT}/models/karlo/ /data/models/karlo/
+rsync -a --info=NAME ${ROOT}/models/VAE-approx/ /data/models/VAE-approx/
+rsync -a --info=NAME ${ROOT}/models/karlo/ /data/models/karlo/
 #rsync -a --info=NAME /docker/the-models/ /data/models/Stable-diffusion/
 
 declare -A MOUNTS
 
 MOUNTS["/root/.cache"]="/data/.cache"
-MOUNTS["${BOOT}/models"]="/data/models"
+MOUNTS["${ROOT}/models"]="/data/models"
 
-MOUNTS["${BOOT}/embeddings"]="/data/embeddings"
-MOUNTS["${BOOT}/config.json"]="/data/config/auto/config.json"
-MOUNTS["${BOOT}/ui-config.json"]="/data/config/auto/ui-config.json"
-MOUNTS["${BOOT}/styles.csv"]="/data/config/auto/styles.csv"
-MOUNTS["${BOOT}/extensions"]="/data/config/auto/extensions"
-MOUNTS["${BOOT}/config_states"]="/data/config/auto/config_states"
+MOUNTS["${ROOT}/embeddings"]="/data/embeddings"
+MOUNTS["${ROOT}/config.json"]="/data/config/auto/config.json"
+MOUNTS["${ROOT}/ui-config.json"]="/data/config/auto/ui-config.json"
+MOUNTS["${ROOT}/styles.csv"]="/data/config/auto/styles.csv"
+MOUNTS["${ROOT}/extensions"]="/data/config/auto/extensions"
+MOUNTS["${ROOT}/config_states"]="/data/config/auto/config_states"
 
 # extra hacks
-MOUNTS["${BOOT}/repositories/CodeFormer/weights/facelib"]="/data/.cache"
+MOUNTS["${ROOT}/repositories/CodeFormer/weights/facelib"]="/data/.cache"
 
 for to_path in "${!MOUNTS[@]}"; do
   set -Eeuo pipefail
@@ -99,30 +92,30 @@ for installscript in "${list[@]}"; do
     echo "Skipping disabled extension ($EXTNAME)"
     continue
   fi
-  PYTHONPATH=${BOOT} python "$installscript"
+  PYTHONPATH=${ROOT} python "$installscript"
 done
 
 if [ -f "/data/config/auto/startup.sh" ]; then
-  pushd ${BOOT}
+  pushd ${ROOT}
   echo "Running startup script"
   . /data/config/auto/startup.sh
   popd
 fi
 
-mkdir ${BOOT}/models/Stable-diffusion && cd ${BOOT}/models/Stable-diffusion
+mkdir ${ROOT}/models/Stable-diffusion && cd ${ROOT}/models/Stable-diffusion
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensors
-cd ${BOOT}
+cd ${ROOT}
 
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
 
 service nginx start
 
 # Comma separated string to array
-IFS=, read -r -a models <<<"${MODELS}"
+IFS=, read -r -a models <<<"sd_xl_base_1.0.safetensors,sd_xl_refiner_1.0.safetensors,v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors"
 
 # Array to parameter list
 echo "WAITING TO START UP BEFORE LOADING MODELS..."
