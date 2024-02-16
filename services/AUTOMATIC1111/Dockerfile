@@ -71,4 +71,4 @@ ENV CLI_ARGS=""
 ENV MODELS="sd_xl_base_1.0.safetensors,sd_xl_refiner_1.0.safetensors,v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors"
 ENTRYPOINT ["sh", "-c", "/docker/entrypoint.sh -r /stable-diffusion-webui"]
 RUN chmod +x /docker/start.sh && chmod +x /docker/loader.py
-CMD ["sh", "-c", "/docker/start.sh"] 
+CMD ["sh", "-c", "/docker/start.sh -r /stable-diffusion-webui -m ${MODELS}"] 

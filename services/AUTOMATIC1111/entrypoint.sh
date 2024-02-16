@@ -107,5 +107,3 @@ if [ -f "/data/config/auto/startup.sh" ]; then
   . /data/config/auto/startup.sh
   popd
 fi
-
-exec "$@"
