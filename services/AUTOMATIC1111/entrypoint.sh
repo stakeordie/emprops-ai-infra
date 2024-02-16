@@ -135,5 +135,3 @@ echo "Loading models: ${MODELS}"
 for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
 
 echo "~~READY~~"
-
-sleep infinity

@@ -71,4 +71,4 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 ENV MODELS="sd_xl_base_1.0.safetensors,sd_xl_refiner_1.0.safetensors,v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors"
 RUN chmod +x /docker/start.sh && chmod +x /docker/loader.py
-CMD /docker/entrypoint.sh -r ${ROOT} -m ${MODELS} > ${LOG_DIR} 2>&1
+CMD /docker/start.sh
