@@ -18,9 +18,12 @@ service nginx start
 IFS=, read -r -a models <<<"${MODELS}"
 
 # Array to parameter list
-echo "Loading models: ${MODELS}"
+echo "WAITING TO START UP BEFORE LOADING MODELS..."
 
 sleep 75
+
+# Array to parameter list
+echo "Loading models: ${MODELS}"
 
 for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
 
