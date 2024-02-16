@@ -7,7 +7,7 @@ wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingf
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
-
+wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensorsmore_details.safetensors
 cd ${ROOT}
 
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --nowebui --api --port 3130 --medvram --no-half-vae"
