@@ -64,10 +64,11 @@ RUN \
   # one of the ugliest hacks I ever wrote \
   sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py && \
   git config --global --add safe.directory '*'
+ENV LOG_DIR=/docker/logs
 
 WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 ENV MODELS="sd_xl_base_1.0.safetensors,sd_xl_refiner_1.0.safetensors,v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors"
 RUN chmod +x /docker/start.sh && chmod +x /docker/loader.py
-CMD ["sh", "-c", "/docker/entrypoint.sh -r ${ROOT} && /docker/start.sh -r ${ROOT} -m ${MODELS}"]
+CMD ["sh", "-c", "/docker/entrypoint.sh -r ${ROOT} > ${LOG_DIR} && /docker/start.sh -r ${ROOT} -m ${MODELS} > ${LOG_DIR}"]
