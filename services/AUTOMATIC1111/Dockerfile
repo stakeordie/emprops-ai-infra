@@ -20,7 +20,7 @@ ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   # we need those
-  apt-get install -y fonts-dejavu-core rsync git jq moreutils aria2 nginx wget \
+  apt-get install -y fonts-dejavu-core rsync git jq moreutils aria2 nginx wget nano \
   # extensions needs those
   ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
 
@@ -64,7 +64,7 @@ RUN \
   # one of the ugliest hacks I ever wrote \
   sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py && \
   git config --global --add safe.directory '*'
-ENV LOG_DIR=/docker/logs
+ENV LOG_DIR=/docker/docker_sh.log
 
 WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
