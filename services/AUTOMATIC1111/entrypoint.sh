@@ -6,7 +6,7 @@ set -Eeuo pipefail
 mkdir -p /data/config/auto/scripts/
 # mount scripts individually
 
-while getopts ":r" flag > /dev/null 2>&1
+while getopts "r:" flag > /dev/null 2>&1
 do
     case ${flag} in
         r) BOOT="${OPTARG}" ;;
