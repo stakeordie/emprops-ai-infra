@@ -33,7 +33,8 @@ WORKDIR /
 
 #COPY ${models} /data/models/Stable-diffusion
 
-COPY clone.sh config.py Dockerfile entrypoint.sh nginx.conf nginx-default start.sh loader.py /docker/
+COPY clone.sh config.py Dockerfile nginx.conf nginx-default start.sh loader.py /docker/
+COPY builder.sh /builder.sh
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
