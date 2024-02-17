@@ -7,8 +7,8 @@ mkdir -p /data/config/auto/scripts/
 # mount scripts individually
 
 ROOT=/stable-diffusion-webui
-# MODELS="sd_xl_base_1.0.safetensors,sd_xl_refiner_1.0.safetensors,v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors"
-MODELS="v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors"
+MODELS="v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors,sd_xl_refiner_1.0.safetensors,sd_xl_base_1.0.safetensors"
+#MODELS="v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors"
 
 echo $ROOT
 ls -lha $ROOT
@@ -19,6 +19,10 @@ cp -vrfTs /data/config/auto/scripts/ "${ROOT}/scripts/"
 
 cp /docker/nginx.conf /etc/nginx/nginx.conf
 cp /docker/nginx-default /etc/nginx/sites-enabled/default
+
+apt-get install git-lfs
+git lfs install
+git clone https://github.com/stakeordie/sd_models.git /docker/emprops_models_repo
 
 echo "Installing pm2..."
 apt-get install -y ca-certificates curl gnupg
@@ -107,10 +111,13 @@ fi
 mkdir ${ROOT}/models/Stable-diffusion && cd ${ROOT}/models/Stable-diffusion
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors
-#wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
-#wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
-#wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensors
+wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
+wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensors
 cd ${ROOT}
+
+
+cp -R -u -p /docker/emprops_models_repo /stable-diffusion-webui/models
 
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
 
