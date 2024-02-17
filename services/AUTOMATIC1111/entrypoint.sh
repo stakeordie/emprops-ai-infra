@@ -23,6 +23,7 @@ cp /docker/nginx-default /etc/nginx/sites-enabled/default
 apt-get install git-lfs
 git lfs install
 git clone https://github.com/stakeordie/sd_models.git /docker/emprops_models_repo
+rm -rf /docker/emprops_models_repo/.git
 
 echo "Installing pm2..."
 apt-get install -y ca-certificates curl gnupg
@@ -116,8 +117,7 @@ wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingf
 #wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensors
 cd ${ROOT}
 
-
-cp -R -u -p /docker/emprops_models_repo /stable-diffusion-webui/models
+rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/models/
 
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
 
