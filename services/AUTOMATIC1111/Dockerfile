@@ -40,7 +40,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
   cd stable-diffusion-webui && \
   git reset --hard cf2772fab0af5573da775e7437e6acdca424f26e && \
-  pip install -r requirements_versions.txt
+  pip install -r requirements_versions.txt \
+  && cd /
 
 ENV ROOT=/stable-diffusion-webui
 
