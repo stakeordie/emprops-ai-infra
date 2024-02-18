@@ -5,5 +5,5 @@
 *.code-workspace
 /.vscode
 
-#ENV
+# ENV
 .env*

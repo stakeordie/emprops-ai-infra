@@ -33,6 +33,8 @@ WORKDIR /
 
 #COPY ${models} /data/models/Stable-diffusion
 
+ARG GITACCESSKEY
+
 COPY clone.sh config.py Dockerfile start.sh loader.py /docker/
 COPY build.sh /build.sh
 COPY .bash_aliases ~/.bash_aliases
