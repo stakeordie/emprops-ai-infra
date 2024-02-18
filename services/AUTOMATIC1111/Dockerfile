@@ -33,7 +33,7 @@ WORKDIR /
 
 #COPY ${models} /data/models/Stable-diffusion
 
-COPY clone.sh config.py Dockerfile nginx.conf nginx-default start.sh loader.py /docker/
+COPY clone.sh config.py Dockerfile start.sh loader.py /docker/
 COPY build.sh .bash_aliases /
 
 RUN --mount=type=cache,target=/root/.cache/pip \

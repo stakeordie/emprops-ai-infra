@@ -127,6 +127,8 @@ rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/model
 
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
 
+rm -rf /etc/nginx
+git clone -b sd-node https://github.com/stakeordie/emprops-nginx-conf.git /etc/nginx
 service nginx start
 
 # Comma separated string to array
