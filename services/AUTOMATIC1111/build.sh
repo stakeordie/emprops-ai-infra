@@ -132,7 +132,7 @@ pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --po
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_ed25519
 rm -rf /etc/nginx
-git clone -b sd-node git@github.com:stakeordie/emprops-nginx-conf.git /etc/nginx
+git clone -b sd-node git@github.com:stakeordie/emprops-nginx-conf.git /etc/nginx -y
 service nginx start
 
 # Comma separated string to array
