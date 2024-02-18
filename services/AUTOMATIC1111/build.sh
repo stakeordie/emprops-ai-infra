@@ -15,9 +15,6 @@ ls -lha /
 find "${ROOT}/scripts/" -maxdepth 1 -type l -delete
 cp -vrfTs /data/config/auto/scripts/ "${ROOT}/scripts/"
 
-cp /docker/nginx.conf /etc/nginx/nginx.conf
-cp /docker/nginx-default /etc/nginx/sites-enabled/default
-
 apt-get install git-lfs
 git lfs install
 git clone https://github.com/stakeordie/sd_models.git /docker/emprops_models_repo
