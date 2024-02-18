@@ -132,6 +132,9 @@ pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --po
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_ed25519
 rm -rf /etc/nginx
+ssh-keyscan github.com > ~/.ssh/githubKey
+ssh-keygen -lf ~/.ssh/githubKey
+cat githubKey >> ~/.ssh/known_hosts
 git clone -b sd-node git@github.com:stakeordie/emprops-nginx-conf.git /etc/nginx -y
 service nginx start
 
