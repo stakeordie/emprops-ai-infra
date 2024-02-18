@@ -7,9 +7,6 @@ mkdir -p /data/config/auto/scripts/
 # mount scripts individually
 
 ROOT=/stable-diffusion-webui
-#MODELS="sd_xl_refiner_1.0_0.9vae.safetensors,sd_xl_base_1.0_0.9vae.safetensors"
-MODELS="v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors,sd_xl_refiner_1.0_0.9vae.safetensors,sd_xl_base_1.0_0.9vae.safetensors"
-#MODELS="v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors"
 
 echo $ROOT
 ls -lha $ROOT
@@ -116,6 +113,14 @@ wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingf
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors
 wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensors
+wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/223670?type=Model&format=SafeTensor&size=full&fp=fp16" -O epiCPhotoGasm.safetensors
+MODELS="v1-5-pruned.safetensors"
+MODELS+=",v2-1_768-ema-pruned.safetensors"
+MODELS+=",sd_xl_refiner_1.0_0.9vae.safetensors"
+MODELS+=",sd_xl_base_1.0_0.9vae.safetensors"
+MODELS+=",juggernautXL_v8Rundiffusion.safetensors"
+MODELS+=",epiCPhotoGasm.safetensors"
+
 cd ${ROOT}
 
 rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/models/
