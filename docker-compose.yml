@@ -62,7 +62,7 @@ services:
       context: ./services/AUTOMATIC1111
       args:
         models: "models"
-        GTIACCESSKEY: ${GITACCESSKEY}
+        GITACCESSKEY: ${GITACCESSKEY}
     image: emprops/auto1111:sdauto-alltester
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
