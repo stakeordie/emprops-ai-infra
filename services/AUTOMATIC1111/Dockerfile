@@ -35,6 +35,7 @@ WORKDIR /
 
 COPY clone.sh config.py Dockerfile start.sh loader.py /docker/
 COPY build.sh .bash_aliases /
+RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
