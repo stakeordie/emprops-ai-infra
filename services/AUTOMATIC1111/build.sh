@@ -105,8 +105,18 @@ if [ -f "/data/config/auto/startup.sh" ]; then
 fi
 
 mkdir ${ROOT}/models/Stable-diffusion && cd ${ROOT}/models/Stable-diffusion
+
+##JuggernautXL
+wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O JuggernautXL_v8Rundiffusion.safetensors && MODELS+="JuggernautXL_v8Rundiffusion.safetensors"
+
+##EpiCPhotoGasm
+wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/223670?type=Model&format=SafeTensor&size=full&fp=fp16" -O epiCPhotoGasm.safetensors && MODELS+=",epiCPhotoGasm.safetensors"
+
+##JUGG V9
+wget --no-verbose --show-progress --progress=bar:force:noscroll wget https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors -O Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors && MODELS+=",Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
+
 ## 1.5
-wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors && MODELS="v1-5-pruned.safetensors"
+wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors && MODELS=",v1-5-pruned.safetensors"
 
 ## 2.1
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors && MODELS+=",v2-1_768-ema-pruned.safetensors"
@@ -116,15 +126,6 @@ wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingf
 
 ##SDXL Refiner
 wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors && MODELS+=",sd_xl_base_1.0_0.9vae.safetensors"
-
-##JuggernautXL
-wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O JuggernautXL_v8Rundiffusion.safetensors
-
-##EpiCPhotoGasm
-wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/223670?type=Model&format=SafeTensor&size=full&fp=fp16" -O epiCPhotoGasm.safetensors
-
-##JUGG V9
-wget --no-verbose --show-progress --progress=bar:force:noscroll wget https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors -O Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors
 
 cd ${ROOT}
 
