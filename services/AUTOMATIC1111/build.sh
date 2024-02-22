@@ -10,7 +10,7 @@ else
   usermod -aG sudo ubuntu
   mkdir -p /home/ubuntu/.ssh && touch /home/ubuntu/.ssh/authorized_keys
   cp /root/.ssh/authorized_keys /home/ubuntu/.ssh/authorized_keys
-  chown -R ubuntu:ubuntu /home/ubuntu/.ssh
+  chown -R ubuntu:ubuntu /home/ubuntu/.ssh/authorized_keys
   touch /etc/ssh/sshd_config.d/ubuntu.conf \
   && echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config.d/ubuntu.conf \
   && echo "PasswordAuthentication no" >> /etc/ssh/sshd_config.d/ubuntu.conf
@@ -150,7 +150,14 @@ cd ${ROOT}
 
 rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/models/
 
+# mv /stable-diffusion-webui/ /home/ubuntu/
+# chown -R ubuntu:ubuntu /home/ubuntu/stable-diffusion-webui
+
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4
+
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
+
+##runuser -l ubuntu -c "cd /home/ubuntu/stable-diffusion-webui && pm2 start --name webui \"./webui.sh --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae\""
 
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_ed25519
