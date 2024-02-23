@@ -158,8 +158,6 @@ rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/model
 echo $LD_PRELOAD
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --lowram --no-half-vae"
 
-##runuser -l ubuntu -c "cd /home/ubuntu/stable-diffusion-webui && pm2 start --name webui \"./webui.sh --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae\""
-
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_ed25519
 rm -rf /etc/nginx
