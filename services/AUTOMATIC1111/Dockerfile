@@ -36,13 +36,13 @@ WORKDIR /
 ARG GITACCESSKEY
 
 COPY clone.sh config.py Dockerfile start.sh loader.py /docker/
-RUN echo "next"
+RUN echo "cache"
 COPY build.sh /build.sh
-RUN echo "next"
+RUN echo "cache"
 COPY .bash_aliases /root/.bash_aliases
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
 
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
   cd stable-diffusion-webui && \
   git reset --hard cf2772fab0af5573da775e7437e6acdca424f26e && \
@@ -53,10 +53,10 @@ ENV ROOT=/stable-diffusion-webui
 
 COPY --from=download /repositories/ ${ROOT}/repositories/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
 
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/root/.cache/pip \
   pip install pyngrok diffusers xformers==0.0.23.post1 \
   git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
   git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
