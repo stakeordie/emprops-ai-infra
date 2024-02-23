@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-export LD_PRELOAD=libtcmalloc.so
+LD_PRELOAD=libtcmalloc.so
 
 if [ -d "/home/ubuntu" ]; then
   ### Take action if $DIR exists ###
