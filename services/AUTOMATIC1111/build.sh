@@ -4,23 +4,6 @@ set -Eeuo pipefail
 
 LD_PRELOAD=libtcmalloc.so
 
-if [ -d "/home/ubuntu" ]; then
-  ### Take action if $DIR exists ###
-  echo "User Exists"
-else
-  useradd -m -d /home/ubuntu -s /bin/bash ubuntu
-  usermod -aG sudo ubuntu
-  mkdir -p /home/ubuntu/.ssh && touch /home/ubuntu/.ssh/authorized_keys
-  cp /root/.ssh/authorized_keys /home/ubuntu/.ssh/authorized_keys
-  chown -R ubuntu:ubuntu /home/ubuntu/.ssh/authorized_keys
-  touch /etc/ssh/sshd_config.d/ubuntu.conf \
-  && echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config.d/ubuntu.conf \
-  && echo "PasswordAuthentication no" >> /etc/ssh/sshd_config.d/ubuntu.conf
-  service ssh restart
-  sudo cp /etc/sudoers /etc/sudoers.bak
-  echo 'ubuntu ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
-  fi
-
 # TODO: move all mkdir -p ?
 mkdir -p /data/config/auto/scripts/
 # mount scripts individually
