@@ -2,6 +2,8 @@
 
 set -Eeuo pipefail
 
+export LD_PRELOAD=libtcmalloc.so
+
 if [ -d "/home/ubuntu" ]; then
   ### Take action if $DIR exists ###
   echo "User Exists"
