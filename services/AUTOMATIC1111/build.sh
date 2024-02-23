@@ -157,7 +157,7 @@ rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/model
 
 LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4
 
-pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
+pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --lowram --no-half-vae"
 
 ##runuser -l ubuntu -c "cd /home/ubuntu/stable-diffusion-webui && pm2 start --name webui \"./webui.sh --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae\""
 
