@@ -39,7 +39,7 @@ services:
     build: 
       context: ./services/AUTOMATIC1111
       args:
-        models: "1_5-and-2_1"
+        GITACCESSKEY: ${GITACCESSKEY}
     image: emprops/auto1111:sdauto1_5-and-2_1
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
@@ -49,6 +49,8 @@ services:
     profiles: ["sdxl-and-refiner"]
     build: 
       context: ./services/AUTOMATIC1111
+      args:
+        GITACCESSKEY: ${GITACCESSKEY}
     image: emprops/auto1111:sdxl-and-refiner-v1
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
@@ -59,7 +61,6 @@ services:
     build: 
       context: ./services/AUTOMATIC1111
       args:
-        models: "models"
         GITACCESSKEY: ${GITACCESSKEY}
     image: emprops/auto1111:sdauto-allv4
     environment:
