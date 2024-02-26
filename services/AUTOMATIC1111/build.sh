@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -Eeuo pipefail
-
 LD_PRELOAD=libtcmalloc.so
 
 # TODO: move all mkdir -p ?
