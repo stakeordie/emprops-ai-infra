@@ -2,6 +2,8 @@
 
 set -Eeuo pipefail
 
-./build.sh
+chmod +x /docker/build.sh
+
+bash /docker/build.sh
 
 sleep infinity
