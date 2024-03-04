@@ -69,7 +69,7 @@ services:
 
   old: &automatic
     <<: *base_service
-    profiles: ["all"]
+    profiles: ["old"]
     build: 
       context: ./services/AUTOMATIC1111
       args:
