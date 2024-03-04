@@ -35,8 +35,8 @@ WORKDIR /
 
 ARG GITACCESSKEY
 
-COPY clone.sh config.py Dockerfile build.sh start.sh loader.py /docker/
-RUN echo "cache"
+COPY clone.sh config.py Dockerfile start.sh loader.py /docker/
+COPY build.sh /build.sh
 COPY .bash_aliases /root/.bash_aliases
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
 
@@ -62,7 +62,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # there seems to be a memory leak (or maybe just memory not being freed fast enough) that is fixed by this version of malloc
 # maybe move this up to the dependencies list.
-RUN apt-get -y install libgoogle-perftools-dev htop nvtop && apt-get clean
+RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
+ENV LD_PRELOAD=libtcmalloc.so
 
 RUN \
   # mv ${ROOT}/style.css ${ROOT}/user.css && \
@@ -75,6 +76,5 @@ WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV CLI_ARGS=""
 #ENV MODELS="sd_xl_base_1.0.safetensors,sd_xl_refiner_1.0.safetensors,v2-1_768-ema-pruned.safetensors,v1-5-pruned.safetensors,juggernautXL_v8Rundiffusion.safetensors"
-RUN chmod +x /docker/start.sh && chmod +x /docker/loader.py && chmod +x /docker/build.sh
-
+RUN chmod +x /docker/start.sh && chmod +x /docker/loader.py
 CMD /docker/start.sh

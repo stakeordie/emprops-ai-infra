@@ -39,8 +39,7 @@ services:
     build: 
       context: ./services/AUTOMATIC1111
       args:
-        GITACCESSKEY: ${GITACCESSKEY}
-        LOWRAM: "--lowram"
+        models: "1_5-and-2_1"
     image: emprops/auto1111:sdauto1_5-and-2_1
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
@@ -51,9 +50,8 @@ services:
     build: 
       context: ./services/AUTOMATIC1111
       args:
-        GITACCESSKEY: ${GITACCESSKEY}
-        LOWRAM: "--lowram"
-    image: emprops/auto1111:sdxl-and-refiner-v1
+        models: "sdxl-and-refiner"
+    image: emprops/auto1111:sdautosdxl-and-refiner
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
 
@@ -63,8 +61,8 @@ services:
     build: 
       context: ./services/AUTOMATIC1111
       args:
+        models: "models"
         GITACCESSKEY: ${GITACCESSKEY}
-        LOWRAM: ""
     image: emprops/auto1111:sdauto-allv4
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
