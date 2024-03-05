@@ -63,7 +63,7 @@ services:
       args:
         models: "models"
         GITACCESSKEY: ${GITACCESSKEY}
-    image: emprops/auto1111:sdauto-allv4
+    image: emprops/auto1111:sdauto-allv5
     environment:
       - CLI_ARGS=--opt-sdp-no-mem-attention --api --port 3000 --medvram --no-half-vae
 
