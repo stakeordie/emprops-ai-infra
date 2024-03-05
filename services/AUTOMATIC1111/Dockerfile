@@ -35,7 +35,7 @@ WORKDIR /
 
 ARG GITACCESSKEY
 
-COPY clone.sh config.py Dockerfile start.sh loader.py /docker/
+COPY clone.sh config.py Dockerfile start.sh loader.py error_catch_all.sh /docker/
 COPY build.sh /build.sh
 COPY .bash_aliases /root/.bash_aliases
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519

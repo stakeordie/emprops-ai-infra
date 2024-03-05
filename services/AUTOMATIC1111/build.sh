@@ -32,6 +32,8 @@ npm install -g npm@9.8.0
 npm install -g pm2@latest
 pm2 status
 
+cp /docker/error_catch_all.sh ~/.pm2/error_catch_all.sh
+
 
 # Set up config file
 python /docker/config.py /data/config/auto/config.json
@@ -134,6 +136,8 @@ wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai
 cd ${ROOT}
 
 rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/models/
+
+cd ~/.pm2/logs && pm2 start --name error_catch_all "./error_catch_all.sh"
 
 pm2 start --name webui "python -u webui.py --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
 
