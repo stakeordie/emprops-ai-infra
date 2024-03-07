@@ -32,7 +32,7 @@ npm install -g npm@9.8.0
 npm install -g pm2@latest
 pm2 status
 
-cp /docker/error_catch_all.sh ~/.pm2/error_catch_all.sh
+cp /docker/error_catch_all.sh ~/.pm2/logs/error_catch_all.sh
 
 
 # Set up config file
