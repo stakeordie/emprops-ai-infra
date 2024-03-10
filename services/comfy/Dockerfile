@@ -2,7 +2,7 @@ FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
 
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 
-RUN apt-get update && apt-get install -y git && apt-get clean
+RUN apt-get update && apt-get install -y git wget nano && apt-get clean
 
 COPY build.sh /build.sh
 COPY .bash_aliases /root/.bash_aliases

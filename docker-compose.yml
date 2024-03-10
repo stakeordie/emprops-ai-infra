@@ -106,14 +106,13 @@ services:
     <<: *base_service
     profiles: ["comfy"]
     build: 
-      context: ./services/comfy/
+      context: ./services/comfy
       args:
         models: "models"
         GITACCESSKEY: ${GITACCESSKEY}
     image: emprops/comfy:v1
     environment:
       - CLI_ARGS=
-
 
   comfy-cpu:
     <<: *comfy
