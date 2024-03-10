@@ -16,4 +16,4 @@ WORKDIR ${ROOT}
 COPY . /docker/
 RUN chmod u+x /docker/start.sh && chmod u+x /docker/build.sh && cp /docker/extra_model_paths.yaml ${ROOT}
 
-CMD ./start.sh
+CMD /docker/start.sh
