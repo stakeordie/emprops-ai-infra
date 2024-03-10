@@ -2,7 +2,7 @@ FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
 
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 
-RUN apt-get update && apt-get install -y git nginx wget nano && apt-get clean
+RUN apt-get update && apt-get install -y git rsync nginx wget nano && apt-get clean
 
 ARG GITACCESSKEY
 

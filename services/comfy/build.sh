@@ -48,12 +48,12 @@ if [ -f "/data/config/comfy/startup.sh" ]; then
   popd
 fi
 
-rsync -avz --progress /docker/emprops_models_repo/Lora /stable-diffusion/models/loras
-rsync -avz --progress /docker/emprops_models_repo/ESRGAN /stable-diffusion/models/upscale_models
-rsync -avz --progress /docker/emprops_models_repo/GFPGAN /stable-diffusion/models/upscale_models
-rsync -avz --progress /docker/emprops_models_repo/RealESRGAN /stable-diffusion/models/upscale_models
-rsync -avz --progress /docker/emprops_models_repo/ScuNET /stable-diffusion/models/upscale_models
-rsync -avz --progress /docker/emprops_models_repo/SwinIR /stable-diffusion/models/upscale_models
+rsync -avz --progress /docker/emprops_models_repo/Lora /stable-diffusion/models/loras/
+rsync -avz --progress /docker/emprops_models_repo/ESRGAN /stable-diffusion/models/upscale_models/
+rsync -avz --progress /docker/emprops_models_repo/GFPGAN /stable-diffusion/models/upscale_models/
+rsync -avz --progress /docker/emprops_models_repo/RealESRGAN /stable-diffusion/models/upscale_models/
+rsync -avz --progress /docker/emprops_models_repo/ScuNET /stable-diffusion/models/upscale_models/
+rsync -avz --progress /docker/emprops_models_repo/SwinIR /stable-diffusion/models/upscale_models/
 
 # mkdir ${ROOT}/models/Stable-diffusion && cd ${ROOT}/models/Stable-diffusion
 # ## 1.5
