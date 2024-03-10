@@ -48,16 +48,17 @@ if [ -f "/data/config/comfy/startup.sh" ]; then
   popd
 fi
 
-rsync -avz --progress /docker/emprops_models_repo/Lora /stable-diffusion/models/loras/
-rsync -avz --progress /docker/emprops_models_repo/ESRGAN /stable-diffusion/models/upscale_models/
-rsync -avz --progress /docker/emprops_models_repo/GFPGAN /stable-diffusion/models/upscale_models/
-rsync -avz --progress /docker/emprops_models_repo/RealESRGAN /stable-diffusion/models/upscale_models/
-rsync -avz --progress /docker/emprops_models_repo/ScuNET /stable-diffusion/models/upscale_models/
-rsync -avz --progress /docker/emprops_models_repo/SwinIR /stable-diffusion/models/upscale_models/
+cp -a /docker/emprops_models_repo/Lora/. /stable-diffusion/models/loras/
+cp -a /docker/emprops_models_repo/ESRGAN/. /stable-diffusion/models/upscale_models/
+cp -a /docker/emprops_models_repo/GFPGAN/. /stable-diffusion/models/upscale_models/
+cp -a /docker/emprops_models_repo/RealESRGAN/. /stable-diffusion/models/upscale_models/
+cp -a /docker/emprops_models_repo/ScuNET/. /stable-diffusion/models/upscale_models/
+cp -a /docker/emprops_models_repo/SwinIR/. /stable-diffusion/models/upscale_models/
 
 # mkdir ${ROOT}/models/Stable-diffusion && cd ${ROOT}/models/Stable-diffusion
 # ## 1.5
-wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors -O /stable-diffusion/v1-5-pruned.safetensors
+cd ${ROOT}/models/checkpoints
+wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors
 
 # ## 2.1
 # wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors && MODELS+=",v2-1_768-ema-pruned.safetensors"
