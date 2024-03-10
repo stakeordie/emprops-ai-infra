@@ -20,7 +20,6 @@ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dea
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 apt-get update
 apt-get install -y nodejs
-apt-get install nodejs -y
 npm install -g npm@9.8.0
 npm install -g pm2@latest
 pm2 status
@@ -72,7 +71,7 @@ fi
 
 # rsync -avz --progress /docker/emprops_models_repo/ /stable-diffusion-webui/models/
 
-pm2 start --name webui "python -u main.py --listen --port 7860 ${CLI_ARGS} --opt-sdp-no-mem-attention --api --port 3130 --medvram --no-half-vae"
+pm2 start --name webui "python -u main.py --port 3130"
 
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_ed25519
@@ -84,16 +83,16 @@ git clone -b sd-node git@github.com:stakeordie/emprops-nginx-conf.git /etc/nginx
 service nginx start
 
 # Comma separated string to array
-IFS=, read -r -a models <<<"${MODELS}"
+# IFS=, read -r -a models <<<"${MODELS}"
 
-# Array to parameter list
-echo "WAITING TO START UP BEFORE LOADING MODELS..."
+# # Array to parameter list
+# echo "WAITING TO START UP BEFORE LOADING MODELS..."
 
-sleep 75
+# sleep 75
 
-# Array to parameter list
-echo "Loading models: ${MODELS}"
+# # Array to parameter list
+# echo "Loading models: ${MODELS}"
 
-for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
+# for model in "${models[@]}"; do echo $model && python /docker/loader.py -m $model; done
 
 echo "~~READY~~"
