@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 
 RUN apt-get update && apt-get install -y git wget nano && apt-get clean
 
+ARG GITACCESSKEY
+
 COPY build.sh /build.sh
 COPY .bash_aliases /root/.bash_aliases
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
