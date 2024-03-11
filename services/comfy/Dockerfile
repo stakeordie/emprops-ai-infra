@@ -12,11 +12,7 @@ RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed2
 
 ENV ROOT=/stable-diffusion
 RUN --mount=type=cache,target=/root/.cache/pip \
-  git clone https://github.com/comfyanonymous/ComfyUI.git ${ROOT} && \
-  cd ${ROOT} && \
-  git checkout master && \
-  git reset --hard d1f3637a5a944d0607b899babd8ff11d87100503 && \
-  pip install -r requirements.txt
+  git clone https://github.com/ComfyWorkflows/comfyui-launcher ${ROOT}
 
 WORKDIR ${ROOT}
 COPY . /docker/
