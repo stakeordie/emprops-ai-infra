@@ -10,7 +10,7 @@ COPY build.sh /build.sh
 COPY .bash_aliases /root/.bash_aliases
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo ${GITACCESSKEY} >> ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
 
-ENV ROOT=/stable-diffusion
+ENV ROOT=/comfyui-launcher
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/ComfyWorkflows/comfyui-launcher ${ROOT}
 
