@@ -2,16 +2,9 @@
 
 set -Eeuo pipefail
 
-mkdir -vp /data/config/comfy/custom_nodes
-
 echo $ROOT
 ls -lha $ROOT
-ls -lha /
-
-apt-get install git-lfs
-git lfs install
-git clone https://github.com/stakeordie/sd_models.git /docker/emprops_models_repo
-rm -rf /docker/emprops_models_repo/.git
+ls -lha / 
 
 echo "Installing pm2..."
 apt-get install -y ca-certificates curl gnupg
@@ -26,58 +19,9 @@ pm2 status
 
 declare -A MOUNTS
 
-MOUNTS["/root/.cache"]="/data/.cache"
-MOUNTS["${ROOT}/input"]="/data/config/comfy/input"
-MOUNTS["${ROOT}/output"]="/output/comfy"
-
-for to_path in "${!MOUNTS[@]}"; do
-  set -Eeuo pipefail
-  from_path="${MOUNTS[${to_path}]}"
-  rm -rf "${to_path}"
-  if [ ! -f "$from_path" ]; then
-    mkdir -vp "$from_path"
-  fi
-  mkdir -vp "$(dirname "${to_path}")"
-  ln -sT "${from_path}" "${to_path}"
-  echo Mounted $(basename "${from_path}")
-done
-
-if [ -f "/data/config/comfy/startup.sh" ]; then
-  pushd ${ROOT}
-  . /data/config/comfy/startup.sh
-  popd
-fi
-
-cp -a /docker/emprops_models_repo/Lora/. /stable-diffusion/models/loras/
-cp -a /docker/emprops_models_repo/ESRGAN/. /stable-diffusion/models/upscale_models/
-cp -a /docker/emprops_models_repo/GFPGAN/. /stable-diffusion/models/upscale_models/
-cp -a /docker/emprops_models_repo/RealESRGAN/. /stable-diffusion/models/upscale_models/
-cp -a /docker/emprops_models_repo/ScuNET/. /stable-diffusion/models/upscale_models/
-cp -a /docker/emprops_models_repo/SwinIR/. /stable-diffusion/models/upscale_models/
-
-# mkdir ${ROOT}/models/Stable-diffusion && cd ${ROOT}/models/Stable-diffusion
-# ## 1.5
-cd ${ROOT}/models/checkpoints
-wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors
-
-# ## 2.1
-# wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors && MODELS+=",v2-1_768-ema-pruned.safetensors"
-
-# ## SDXL
-# wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors && MODELS+=",sd_xl_refiner_1.0_0.9vae.safetensors"
-
-# ##SDXL Refiner
-# wget --no-verbose --show-progress --progress=bar:force:noscroll https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors && MODELS+=",sd_xl_base_1.0_0.9vae.safetensors"
-
-# ##JuggernautXL
-# wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/288982?type=Model&format=SafeTensor&size=full&fp=fp16" -O juggernautXL_v8Rundiffusion.safetensors && MODELS+=",juggernautXL_v8Rundiffusion.safetensors"
-
-# ##EpiCPhotoGasm
-# wget --no-verbose --show-progress --progress=bar:force:noscroll "https://civitai.com/api/download/models/223670?type=Model&format=SafeTensor&size=full&fp=fp16" -O epiCPhotoGasm.safetensors && MODELS+=",epiCPhotoGasm.safetensors"
-
 cd ${ROOT}
 
-pm2 start --name webui "python -u main.py --port 3130"
+pm2 start --name launcher "./run.sh"
 
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_ed25519
@@ -85,7 +29,7 @@ rm -rf /etc/nginx
 ssh-keyscan github.com > ~/.ssh/githubKey
 ssh-keygen -lf ~/.ssh/githubKey
 cat ~/.ssh/githubKey >> ~/.ssh/known_hosts
-git clone -b sd-node git@github.com:stakeordie/emprops-nginx-conf.git /etc/nginx
+git clone -b comfy-node git@github.com:stakeordie/emprops-nginx-conf.git /etc/nginx
 service nginx start
 
 # Comma separated string to array
