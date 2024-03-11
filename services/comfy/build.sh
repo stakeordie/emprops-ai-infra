@@ -2,6 +2,8 @@
 
 set -Eeuo pipefail
 
+ROOT=/comfyui-launcher
+
 echo $ROOT
 ls -lha $ROOT
 ls -lha / 
