@@ -19,8 +19,6 @@ npm install -g npm@9.8.0
 npm install -g pm2@latest
 pm2 status
 
-declare -A MOUNTS
-
 cd ${ROOT}
 
 pm2 start --name launcher "./run.sh"
