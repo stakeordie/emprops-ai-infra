@@ -10,7 +10,7 @@ parser.add_argument("-m", "--model", help="Model To Load", default="sd_xl_base_1
 
 args = parser.parse_args()
 
-url = "http://127.0.0.1:3100" # or your URL
+url = "http://127.0.0.1:3130" # or your URL
 opt = requests.get(url=f'{url}/sdapi/v1/options')
 opt_json = opt.json()
 opt_json['sd_model_checkpoint'] = args.model
